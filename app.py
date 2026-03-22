@@ -36,5 +36,6 @@ def home():
 
 
 @app.get("/transport")
-def transport(quantity: float, distance: float):
-    return agent.recommend_transport(quantity, distance)
+def get_transport(quantity: float):
+    result = agent.recommend_transport(quantity)
+    return result
