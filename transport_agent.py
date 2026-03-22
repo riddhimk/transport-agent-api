@@ -13,27 +13,24 @@ class TransportAgent:
         overhead = 3
         return fuel_cost + overhead
 
-    def evaluate_vehicle(self, vehicle_row, load_ton, distance_km):
+    def evaluate_vehicle(self, vehicle_row, load_ton):
         capacity = float(vehicle_row["capacity_ton"])
         mileage = float(vehicle_row["mileage_kmpl"])
-
+    
         cost_per_km = self.compute_cost_per_km(mileage)
-        total_cost = cost_per_km * distance_km
-
-        utilization = min(load_ton / capacity, 1)
-        cost_per_tonne = total_cost / load_ton
-
+    
+        # 🔥 CORE CHANGE
+        cost_per_tonne_per_km = cost_per_km / capacity
+    
         return {
             "vehicle_type": str(vehicle_row["vehicle_type"]),
             "model": str(vehicle_row["model"]),
             "capacity": capacity,
-            "cost_per_km": round(cost_per_km, 2),
-            "total_cost": round(total_cost, 2),
-            "utilization": round(utilization, 3),
-            "cost_per_tonne": round(cost_per_tonne, 2)
+            "mileage": mileage,
+            "cost_per_tonne_per_km": round(cost_per_tonne_per_km, 3)
         }
 
-    def recommend_transport(self, quantity_kg, distance_km):
+    def recommend_transport(self, quantity_kg):
 
         quantity_ton = quantity_kg / 1000
 
@@ -43,20 +40,16 @@ class TransportAgent:
         best_single = None
 
         for _, row in self.vehicle_data.iterrows():
-            capacity = float(row["capacity_ton"])
+            candidate = self.evaluate_vehicle(row, quantity_ton)
 
             if quantity_ton <= capacity:
                 candidate = self.evaluate_vehicle(row, quantity_ton, distance_km)
 
-                if best_single is None or candidate["cost_per_tonne"] < best_single["cost_per_tonne"]:
-                    best_single = candidate
+                if best is None or candidate["cost_per_tonne_per_km"] < best["cost_per_tonne_per_km"]:
+                    best = candidate
 
         if best_single is not None:
-            return {
-                "mode": "single_vehicle",
-                "vehicle": best_single,
-                "total_cost": best_single["total_cost"]
-            }
+            return best
 
         # -------------------------------
         # CASE 2: MULTIPLE VEHICLES
