@@ -1,0 +1,10 @@
+vehicle_type,model,manufacturer,capacity_ton,mileage_kmpl,source_reference
+Mini,Tata Ace,Tata Motors,1,21,Tata Ace brochure (claimed mileage)
+Mini,Ashok Leyland Dost,Ashok Leyland,1.25,19,Ashok Leyland Dost specs
+Light,Tata 407,Tata Motors,2.5,11,Tata LCV segment typical mileage
+Light,Mahindra Bolero Pickup,Mahindra,1.5,14,Mahindra pickup specs
+Medium,Eicher Pro 2049,Eicher,5,9,Eicher Pro series specs
+Medium,Tata 709g LPT,Tata Motors,6.5,8,Tata medium truck specs
+Heavy,Tata LPT 1615,Tata Motors,12,5,Tata heavy truck specs
+Heavy,Ashok Leyland 1618,Ashok Leyland,14,4.5,Ashok Leyland heavy specs
+Heavy,BharatBenz 1923C,Daimler India,16,4,BharatBenz mining tipper specs

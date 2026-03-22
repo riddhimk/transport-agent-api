@@ -1,0 +1,4 @@
+source,cost_per_tonne_km_min,cost_per_tonne_km_max,source_reference
+NABARD,2,4,NABARD rural transport study
+FCI,2.5,3.5,Food Corporation of India logistics reports
+Planning Commission,2,4.5,Indian freight cost estimates
